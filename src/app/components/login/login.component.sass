@@ -1,0 +1,129 @@
+::ng-deep body
+  background: url('../../../assets/images/login_fondo_001.png') no-repeat
+  background-size: auto !important
+  display: flex
+  flex-direction: column
+  height: 100vh
+  justify-content: center
+  overflow-x: hidden
+  overflow-y: hidden
+
+.body1
+  background: url('../../../assets/images/login_body_2.png') no-repeat
+
+.body2
+  background: -webkit-linear-gradient(left, rgba(237,28,35,0.3) 0%, rgba(176,23,56,0.3) 36%, rgba(60,71,73,0.3) 65%, rgba(60,71,73,0.3) 100%)
+
+.div-padre
+  border-radius: 30px 0 30px 0
+  background: -webkit-linear-gradient(left, rgba(237,28,35,0.7) 0%, rgba(176,23,56,0.7) 36%, rgba(60,71,73,0.6) 65%, rgba(60,71,73,0.5) 100%)
+  color: white
+
+
+.div-hijo
+  border-radius: 30px 0 30px 0
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 100%)
+
+.text-bienvenido
+  text-align: center
+  color: #828282
+  font-size: 20px
+  font-family: Omnes-med
+
+.text-2
+  color: #898989
+  font-size: 16px
+  font-family: Omnes-med
+  text-align: left
+  padding: 0px
+  padding-left: 22px
+
+.text-3
+  color: #3D3D3D
+  font-size: 16px
+  text-align: left
+  width: 100%
+  border: none
+  border-bottom: 1px solid #9b9b9b
+
+.text-4
+  color: #898989
+  font-size: 14px
+  font-family: Omnes-med
+
+.chck-1
+  background: -webkit-linear-gradient(left, rgba(237,28,35,1) 0%, rgba(176,23,56,1) 36%, rgba(60,71,73,1) 100%)
+
+.text-8
+  text-align: center
+  color: white
+  font-size: 15px
+
+.div-pr-1
+  padding-right: 45.36px
+
+.div-btn-1
+  margin: 0px
+  padding: 0px
+  padding-bottom: 46.58px
+  padding-top: 30px
+
+.btn-ingresar
+  background: -webkit-linear-gradient(left, rgba(237,28,35,1) 0%, rgba(176,23,56,1) 36%, rgba(60,71,73,1) 100%)
+  font-family: Omnes-med
+  font-size: 15px
+  color: white
+  width: 40%
+
+.checkbox
+  display: block
+  position: relative
+  padding-left: 20px
+  margin-bottom: 0px
+  cursor: pointer
+  font-size: 22px
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  padding-top: 16px
+
+.checkbox input
+  position: absolute
+  opacity: 0
+  cursor: pointer
+
+.check
+  position: absolute
+  top: 0
+  left: 0
+  height: 15px
+  width: 15px
+  background-color: #eee
+  border: 1px solid #ccc
+
+.checkbox:hover input ~ .check
+  border: 1px solid darkred
+
+.checkbox input:checked ~ .check
+  background: -webkit-linear-gradient(left, rgba(237,28,35,1) 0%, rgba(176,23,56,1) 36%, rgba(60,71,73,1) 100%)
+  border: none
+
+.check:after
+  content: ""
+  position: absolute
+  display: none
+
+.checkbox input:checked ~ .check:after
+  display: block
+
+.checkbox .check:after
+  left: 5px
+  top: 2px
+  width: 5px
+  height: 10px
+  border: solid white
+  border-width: 0 3px 3px 0
+  -webkit-transform: rotate(45deg)
+  -ms-transform: rotate(45deg)
+  transform: rotate(45deg)

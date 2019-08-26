@@ -1,0 +1,23 @@
+
+
+
+<div class="col-12">
+
+  <div class="row">
+    <div class="col-2">NumBoleto</div>
+    <div class="col-4">Pasajero</div>
+    <div class="col-2">Ruta</div>
+    <div class="col-1">Nacional</div>
+    <div class="col-3">TelefonoPax</div>
+  </div>
+
+
+  <div class="row" *ngFor="let item of listadoBoletos">
+    <div class="col-2">{{item.NumBoleto}}</div>
+    <div class="col-4">{{item.Pasajero}}</div>
+    <div class="col-2">{{item.Ruta}}</div>
+    <div class="col-1">{{item.Nacional}}</div>
+    <div class="col-3">{{item.TelefonoPax}}</div>
+  </div>
+
+</div>
