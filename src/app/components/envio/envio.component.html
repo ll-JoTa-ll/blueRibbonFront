@@ -1,23 +1,73 @@
 
 
+<div class="col-12 m-0 p-0 pt-5 pb-5 text-center">
 
-<div class="col-12">
+  BlueRibbon
 
-  <div class="row">
-    <div class="col-2">NumBoleto</div>
-    <div class="col-4">Pasajero</div>
-    <div class="col-2">Ruta</div>
-    <div class="col-1">Nacional</div>
-    <div class="col-3">TelefonoPax</div>
+</div>
+
+<div class="col-12 m-0 p-0">
+
+  <div class="row m-0 p-0">
+
+    <div class="col-2 m-0 p-0">
+
+      <div class="btn-group" style="width: 100% !important;" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+          {{textoSelTipoViaje}} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" (click)="seleccionarTipoViaje('', 'Todos')">Todos</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="seleccionarTipoViaje('N', 'Nacional')">Nacional</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="seleccionarTipoViaje('I', 'Internacional')">Internacional</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="col-5 m-0 p-0 text-center">
+
+      <button class="btn btn-primary" (click)="buscarBoletos()">Buscar</button>
+
+    </div>
+
+
+    <div class="col-5 m-0 p-0 text-center">
+      <button class="btn btn-primary" (click)="sendSms()">Enviar SMS</button>
+    </div>
+
+  </div>
+
+</div>
+
+<hr>
+
+
+<div class="col-12 m-0 p-0 pl-3 pr-3">
+
+  <div class="row m-0 p-0">
+    <div class="col-2 m-0 p-0 text-titulo-1">NumBoleto</div>
+    <div class="col-3 m-0 p-0 text-titulo-1">Pasajero</div>
+    <div class="col-3 m-0 p-0 text-titulo-1">Ruta</div>
+    <div class="col-1 m-0 p-0 text-titulo-1">Nacional</div>
+    <div class="col-2 m-0 p-0 text-titulo-1">TelefonoPax</div>
+    <div class="col-1 m-0 p-0">
+      <input type="checkbox" [(ngModel)]="checkboxAll" (change)="checkAll()">
+    </div>
   </div>
 
 
-  <div class="row" *ngFor="let item of listadoBoletos">
-    <div class="col-2">{{item.NumBoleto}}</div>
-    <div class="col-4">{{item.Pasajero}}</div>
-    <div class="col-2">{{item.Ruta}}</div>
-    <div class="col-1">{{item.Nacional}}</div>
-    <div class="col-3">{{item.TelefonoPax}}</div>
+  <div class="row m-0 p-0" *ngFor="let item of listadoBoletos; let i=index">
+    <div class="col-2 m-0 p-0 text-2">{{item.NumBoleto}}</div>
+    <div class="col-3 m-0 p-0 text-2">{{item.Pasajero}}</div>
+    <div class="col-3 m-0 p-0 text-2">{{item.Ruta}}</div>
+    <div class="col-1 m-0 p-0 text-2 text-center">{{item.Nacional}}</div>
+    <div class="col-2 m-0 p-0 text-2">{{item.TelefonoPax}}</div>
+    <div class="col-1 m-0 p-0">
+      <input type="checkbox" [id]="idCheckBox+i" [(ngModel)]="item.Chekeado" (change)="onFilterChange($event, item)" [value]="item.NumBoleto">
+    </div>
   </div>
 
 </div>

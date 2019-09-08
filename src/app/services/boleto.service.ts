@@ -11,6 +11,7 @@ import { IBoletoModel } from '../models/IBoleto.model';
 export class BoletoService {
 
   private _url: string = environment.url + "/BoletosReporte/";
+  private _url2: string = environment.url2 + "/sendsms/";
 
   constructor(
     private http: HttpClient,
@@ -19,5 +20,9 @@ export class BoletoService {
 
   getBoletoReporte(): Observable<IBoletoModel> {
     return this.http.post<IBoletoModel>(this._url + "getBoletoReporte", null);
+  }
+
+  sendSms(dataPost) {
+    return this.http.post(this._url2 + 'enviarboletos', dataPost);
   }
 }

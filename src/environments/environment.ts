@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://ws-boletos.domiruth.com/api'
+  url: 'http://ws-boletos.domiruth.com/api',
+  url2: 'http://moises074-001-site1.ctempurl.com'
 };
 
 /*
