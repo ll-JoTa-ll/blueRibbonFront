@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BoletoService } from '../../services/boleto.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,15 +19,18 @@ export class EnvioComponent implements OnInit {
   checkboxAll: boolean;
   chekeado: boolean;
   idCheckBox: string;
+  flagBuscar: boolean;
 
   constructor(
-    private boletoService: BoletoService
+    private boletoService: BoletoService,
+    public spinner: NgxSpinnerService
   ) {
     this.textoSelTipoViaje = "Seleccionar tipo de viaje";
     this.tipoSelTipoViaje = "";
     this.checkboxAll = true;
     this.chekeado = false;
     this.idCheckBox = "idcheck";
+    this.flagBuscar = false;
   }
 
   ngOnInit() {
@@ -150,10 +154,12 @@ export class EnvioComponent implements OnInit {
   }
 
   buscarBoletos() {
+    this.spinner.show();
     this.checkboxAll = true;
 
     this.boletoService.getBoletoReporte().subscribe(
       result => {
+        this.flagBuscar = true;
         let listadoBoletos = result.Data;
 
         listadoBoletos = listadoBoletos.filter(word => word.TelefonoPax.length === 9);
@@ -187,9 +193,11 @@ export class EnvioComponent implements OnInit {
         console.log(this.listadoBoletos);
       },
       err => {
+        this.spinner.hide();
         console.log("ERROR: " + err);
       },
       () => {
+        this.spinner.hide();
         console.log("completado");
       }
     );
@@ -197,6 +205,7 @@ export class EnvioComponent implements OnInit {
   }
 
   sendSms() {
+    this.spinner.show();
     console.log("sendSms");
     this.listadoBoletosSend = this.listadoBoletosSend.filter(word => word.Chekeado === true);
     console.log("listadoBoletosSend.length: " + this.listadoBoletosSend.length);
@@ -226,65 +235,75 @@ export class EnvioComponent implements OnInit {
 
     let dataPost = {
       tipoSms: 'br',
-      list: [
-        {
-          "nombre":"jota",
-          "apellido":"test",
-          "celular":"988662201",
-          "correo":"jota@datanoia.com",
-          "pais":"perulandia",
-          "numBoleto":"x1",
-          "ruta":"xxx",
-          "nacional":"I",
-          "urlStr":"https://localhost:44316/api/values/{id}"
-        },
-        {
-          "nombre":"jota",
-          "apellido":"test",
-          "celular":"988662201",
-          "correo":"jota@datanoia.com",
-          "pais":"perulandia",
-          "numBoleto":"x2",
-          "ruta":"xxx",
-          "nacional":"N",
-          "urlStr":"https://localhost:44316/api/values/{id}"
-        },
-        {
-          "nombre":"jota",
-          "apellido":"test",
-          "celular":"997591876",
-          "correo":"jota@datanoia.com",
-          "pais":"perulandia",
-          "numBoleto":"x3",
-          "ruta":"xxx",
-          "nacional":"N",
-          "urlStr":"https://localhost:44316/api/values/{id}"
-        },
-        {
-          "nombre":"jota",
-          "apellido":"test",
-          "celular":"997591876",
-          "correo":"jota@datanoia.com",
-          "pais":"perulandia",
-          "numBoleto":"x4",
-          "ruta":"xxx",
-          "nacional":"I",
-          "urlStr":"https://localhost:44316/api/values/{id}"
-        }
-      ]
+      list: smsLis
     };
+
+    console.log(JSON.stringify(dataPost));
 
     this.boletoService.sendSms(dataPost).subscribe(
       result => {
         console.log("result: " + JSON.stringify(result));
       },
       err => {
+        this.spinner.hide();
         console.log("ERROR: " + JSON.stringify(err));
       },
       () => {
+        this.spinner.hide();
         console.log("sendSms completado");
       }
     );
+  }
+
+  sendSms2() {
+
+    this.spinner.show();
+    console.log("sendSms2");
+    this.listadoBoletosSend = this.listadoBoletosSend.filter(word => word.Chekeado === true);
+    console.log("listadoBoletosSend.length: " + this.listadoBoletosSend.length);
+
+    let boletoService = this.boletoService;
+    this.listadoBoletosSend.forEach(function(boleto, index) {
+      let smsLis: any[] = [];
+      let dataBoletos = {
+        nombre: boleto.Pasajero,
+        apellido: boleto.Pasajero,
+        celular: '988662201',
+        correo: '',
+        pais: '',
+        numBoleto: boleto.NumBoleto,
+        ruta: boleto.Ruta,
+        nacional: boleto.Nacional,
+        vip: boleto.Vip,
+        docIdentidad: boleto.DocIdentidad,
+        telefonoPax: '988662201',
+        corporativo: boleto.PERUVIAN,
+        urlStr: 'https://localhost:44316/api/values/{id}'
+      };
+      smsLis.push(dataBoletos);
+
+      let dataPost = {
+        tipoSms: 'br',
+        list: smsLis
+      };
+
+      console.log(JSON.stringify(dataPost));
+
+      boletoService.sendSms(dataPost).subscribe(
+        result => {
+          console.log("result: " + JSON.stringify(result));
+        },
+        err => {
+          //this.spinner.hide();
+          console.log("ERROR: " + JSON.stringify(err));
+        },
+        () => {
+          //this.spinner.hide();
+          console.log("sendSms completado");
+        }
+      );
+    });
+    this.spinner.hide();
   }
 
 }

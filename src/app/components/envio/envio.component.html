@@ -35,7 +35,7 @@
 
 
     <div class="col-5 m-0 p-0 text-center">
-      <button class="btn btn-primary" (click)="sendSms()">Enviar SMS</button>
+      <button class="btn btn-primary" (click)="sendSms2()">Enviar SMS</button>
     </div>
 
   </div>
@@ -45,7 +45,7 @@
 <hr>
 
 
-<div class="col-12 m-0 p-0 pl-3 pr-3">
+<div *ngIf="flagBuscar" class="col-12 m-0 p-0 pl-3 pr-3">
 
   <div class="row m-0 p-0">
     <div class="col-2 m-0 p-0 text-titulo-1">NumBoleto</div>
@@ -71,3 +71,12 @@
   </div>
 
 </div>
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-spin-fade-rotating"
+  style="width: 100% !important; height: 100% !important;"
+
+></ngx-spinner>
