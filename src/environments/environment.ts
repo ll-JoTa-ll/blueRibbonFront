@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   url: 'http://ws-boletos.domiruth.com/api',
-  url2: 'http://moises074-001-site1.ctempurl.com'
+  url2: 'https://domiribbon.azurewebsites.net',
+  url_br: 'http://validation-api.blueribbonbags.com/api',
+  token_br: 'NmI0MjM3NDktNmZkYi00NGVmLWE0M2YtMGVkMDVhZTg5ZmI2'
 };
 
 /*

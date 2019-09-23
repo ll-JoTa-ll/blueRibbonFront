@@ -4,6 +4,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { IBoletoModel } from '../models/IBoleto.model';
+import { ITicketModel } from '../models/ITicket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class BoletoService {
 
   sendSms(dataPost) {
     return this.http.post(this._url2 + 'enviarboletos', dataPost);
+  }
+
+  getTicket(id): Observable<ITicketModel> {
+    return this.http.get<ITicketModel>(this._url2 + 'GetDetxID/' + id);
   }
 }

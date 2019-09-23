@@ -217,15 +217,15 @@ export class EnvioComponent implements OnInit {
       let dataBoletos = {
         nombre: boleto.Pasajero,
         apellido: boleto.Pasajero,
-        celular: '988662201',
-        correo: '',
+        celular: '997591876',
+        correo: 'juan.caro.1987@gmail.com',
         pais: '',
         numBoleto: boleto.NumBoleto,
         ruta: boleto.Ruta,
         nacional: boleto.Nacional,
         vip: boleto.Vip,
         docIdentidad: boleto.DocIdentidad,
-        telefonoPax: '988662201',
+        telefonoPax: '997591876',
         corporativo: boleto.PERUVIAN,
         urlStr: 'https://localhost:44316/api/values/{id}'
       };

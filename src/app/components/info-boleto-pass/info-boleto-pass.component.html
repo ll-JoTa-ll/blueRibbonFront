@@ -1,0 +1,66 @@
+
+
+<div class="row m-0 p-0 pt-4">
+  <div class="col-3 m-0 p-0">Documento Identidad</div>
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.docIdentidad}}</div>
+</div>
+
+
+<div class="row m-0 p-0 pt-4">
+
+  <div class="col-3 m-0 p-0">Nombre</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.nombreCliente}}</div>
+
+  <div class="col-3 m-0 p-0">Apellido</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.apellidoCliente}}</div>
+
+</div>
+
+<div class="row m-0 p-0 pt-4">
+
+  <div class="col-3 m-0 p-0">Celular</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.celular}}</div>
+
+  <div class="col-3 m-0 p-0">Correo</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.correo}}</div>
+
+</div>
+
+<div class="row m-0 p-0 pt-4">
+
+  <div class="col-3 m-0 p-0">Número boleto</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.numBoleto}}</div>
+
+  <div class="col-3 m-0 p-0">Ruta</div>
+
+  <div class="col-3 m-0 p-0">{{pasajeroBoleto.ruta}}</div>
+
+</div>
+
+
+<div class="row m-0 p-0 pt-4">
+
+  <div class="col-12 m-0 p-0">
+
+    <button (click)="purchaseBillMeLater()">
+      Comprar
+    </button>
+
+  </div>
+
+</div>
+
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-spin-fade-rotating"
+  style="width: 100% !important; height: 100% !important;"
+
+></ngx-spinner>

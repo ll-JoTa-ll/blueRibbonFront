@@ -12,12 +12,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { EnvioComponent } from './components/envio/envio.component';
 import { FormsModule } from '@angular/forms';
+import { InfoBoletoPassComponent } from './components/info-boleto-pass/info-boleto-pass.component';
+import { BlueRibbomFinishComponent } from './components/blue-ribbom-finish/blue-ribbom-finish.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EnvioComponent
+    EnvioComponent,
+    InfoBoletoPassComponent,
+    BlueRibbomFinishComponent
   ],
   imports: [
     BrowserModule,
