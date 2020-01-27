@@ -4,10 +4,15 @@
 
 export const environment = {
   production: false,
-  url: 'http://ws-boletos.domiruth.com/api',
+  url: 'https://ws-boletos.domiruth.com/api',
   url2: 'https://domiribbon.azurewebsites.net',
-  url_br: 'http://validation-api.blueribbonbags.com/api',
-  token_br: 'NmI0MjM3NDktNmZkYi00NGVmLWE0M2YtMGVkMDVhZTg5ZmI2'
+  url_br: 'https://domiribbon.azurewebsites.net',
+  token_br: 'NmI0MjM3NDktNmZkYi00NGVmLWE0M2YtMGVkMDVhZTg5ZmI2',
+  url_visa: 'https://domiribbon.azurewebsites.net',
+  visa_timeouturl: 'http://localhost:4200/visa-fin',
+  visa_pagook: 'http://localhost:4200/visa-timeout',
+  url_sms: 'https://localhost:4200/pass-ticket',
+  url_visa_auth: 'https://domiribbon.azurewebsites.net/visa/AutorizarTransaccion'
 };
 
 /*

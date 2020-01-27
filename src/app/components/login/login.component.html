@@ -35,7 +35,7 @@
                             Mi email
                           </div>
                           <div class="col-8 m-0 pl-0 div-pr-1">
-                            <input class="text-3" type="text" [(ngModel)]="model.User">
+                            <input class="text-3" type="text" [(ngModel)]="model.email">
                           </div>
                         </div>
 
@@ -47,7 +47,7 @@
                             Contraseña
                           </div>
                           <div class="col-8 m-0 pl-0 div-pr-1">
-                            <input class="text-3" type="password" [(ngModel)]="model.Password">
+                            <input class="text-3" type="password" [(ngModel)]="model.password">
                           </div>
                         </div>
                       </div>
@@ -64,7 +64,7 @@
 
                       <div class="col-12 text-center div-btn-1">
 
-                        <button class="btn btn-ingresar">
+                        <button class="btn btn-ingresar" (click)="login()">
                           Ingresar
                         </button>
 

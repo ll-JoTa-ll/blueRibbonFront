@@ -13,7 +13,7 @@ let httpOptions = {
 })
 export class BlueRibbonService {
 
-  private _url_br: string = environment.url_br + "/Service/";
+  private _url_br: string = environment.url_br + "/sendsms/";
 
   constructor(
     private http: HttpClient,
@@ -26,6 +26,6 @@ export class BlueRibbonService {
   }
 
   purchaseBillMeLater(data) {
-    return this.http.post(this._url_br + 'Purchase', data);
+    return this.http.post(this._url_br + 'purchaseBillMeLater', data);
   }
 }

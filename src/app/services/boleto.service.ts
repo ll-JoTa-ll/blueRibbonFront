@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { IBoletoModel } from '../models/IBoleto.model';
 import { ITicketModel } from '../models/ITicket.model';
+import { IListSmsSend } from '../models/IListSmsSend';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class BoletoService {
 
   getTicket(id): Observable<ITicketModel> {
     return this.http.get<ITicketModel>(this._url2 + 'GetDetxID/' + id);
+  }
+
+  getListSmsSend(estado): Observable<IListSmsSend> {
+    return this.http.get<IListSmsSend>(this._url2 + "GetLista/" + estado);
   }
 }

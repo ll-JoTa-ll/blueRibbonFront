@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BoletoService } from '../../services/boleto.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from '../../../environments/environment';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,9 +23,12 @@ export class EnvioComponent implements OnInit {
   idCheckBox: string;
   flagBuscar: boolean;
 
+  modalRef: BsModalRef;
+
   constructor(
     private boletoService: BoletoService,
-    public spinner: NgxSpinnerService
+    public spinner: NgxSpinnerService,
+    private modalService: BsModalService
   ) {
     this.textoSelTipoViaje = "Seleccionar tipo de viaje";
     this.tipoSelTipoViaje = "";
@@ -35,6 +40,8 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
     //this.getBoletoReporte();
+    this.tipoSelTipoViaje = "I";
+    this.buscarBoletos();
   }
 
   getBoletoReporte() {
@@ -182,7 +189,13 @@ export class EnvioComponent implements OnInit {
             DocIdentidad: boleto.DocIdentidad,
             TelefonoPax: boleto.TelefonoPax,
             Corporativo: boleto.Corporativo,
-            Chekeado: true
+            Chekeado: true,
+            Visible: 1,
+            FechaSalida: boleto.FechaSalida,
+            FechaLlegada: boleto.FechaLlegada,
+            AirLineConfirmationNumber: boleto.AirLineConfirmationNumber,
+            AirLineName: boleto.AirLineName,
+            AirLineCode: boleto.AirLineCode
           };
           listadoBoletosSend.push(oBoleto);
         });
@@ -197,27 +210,29 @@ export class EnvioComponent implements OnInit {
         console.log("ERROR: " + err);
       },
       () => {
-        this.spinner.hide();
+        //this.spinner.hide();
+        this.buscarSmsEnviados();
         console.log("completado");
       }
     );
 
   }
 
-  sendSms() {
+  sendSms(template) {
     this.spinner.show();
     console.log("sendSms");
     this.listadoBoletosSend = this.listadoBoletosSend.filter(word => word.Chekeado === true);
     console.log("listadoBoletosSend.length: " + this.listadoBoletosSend.length);
 
     let smsLis: any[] = [];
+    const url_sms = environment.url_sms;
 
     this.listadoBoletosSend.forEach(function(boleto) {
 
-      let dataBoletos = {
-        nombre: boleto.Pasajero,
+      /*
+      nombre: boleto.Pasajero,
         apellido: boleto.Pasajero,
-        celular: '997591876',
+        celular: '956215781',
         correo: 'juan.caro.1987@gmail.com',
         pais: '',
         numBoleto: boleto.NumBoleto,
@@ -225,9 +240,32 @@ export class EnvioComponent implements OnInit {
         nacional: boleto.Nacional,
         vip: boleto.Vip,
         docIdentidad: boleto.DocIdentidad,
-        telefonoPax: '997591876',
+        telefonoPax: '956215781',
         corporativo: boleto.PERUVIAN,
-        urlStr: 'https://localhost:44316/api/values/{id}'
+        urlStr: 'https://localhost:4200/pass-ticket',
+      */
+
+      console.log(JSON.stringify(boleto));
+
+      let dataBoletos = {
+        "nombre": 'Juan',//boleto.Pasajero,
+        "apellido": 'Caro',//boleto.Pasajero,
+        "celular": "988662201",
+        "correo": "juan.caro.1987@gmail.com",
+        "pais": "Peru",
+        "numBoleto": boleto.NumBoleto,
+        "ruta": boleto.Ruta,
+        "nacional": boleto.Nacional,
+        "vip": boleto.Vip,
+        "docIdentidad": '44211032',//boleto.DocIdentidad,
+        "telefonoPax": boleto.TelefonoPax,
+        "corporativo": boleto.Corporativo,
+        "FechaSalida": boleto.FechaSalida,
+        "FechaLlegada": boleto.FechaLlegada,
+        "AirLineCode": boleto.AirLineCode,
+        "AirLineName": boleto.AirLineName,
+        "AirLineConfirmationNumber": boleto.AirLineConfirmationNumber,
+        "urlStr": url_sms
       };
 
       smsLis.push(dataBoletos);
@@ -251,6 +289,8 @@ export class EnvioComponent implements OnInit {
       () => {
         this.spinner.hide();
         console.log("sendSms completado");
+        this.modalRef = this.modalService.show(template);
+        this.buscarBoletos();
       }
     );
   }
@@ -268,15 +308,15 @@ export class EnvioComponent implements OnInit {
       let dataBoletos = {
         nombre: boleto.Pasajero,
         apellido: boleto.Pasajero,
-        celular: '988662201',
-        correo: '',
+        celular: '956215781',
+        correo: 'demo@gmail.com',
         pais: '',
         numBoleto: boleto.NumBoleto,
         ruta: boleto.Ruta,
         nacional: boleto.Nacional,
         vip: boleto.Vip,
         docIdentidad: boleto.DocIdentidad,
-        telefonoPax: '988662201',
+        telefonoPax: '956215781',
         corporativo: boleto.PERUVIAN,
         urlStr: 'https://localhost:44316/api/values/{id}'
       };
@@ -304,6 +344,36 @@ export class EnvioComponent implements OnInit {
       );
     });
     this.spinner.hide();
+  }
+
+  buscarSmsEnviados() {
+    const listadoBoletos = this.listadoBoletos;
+    this.boletoService.getListSmsSend(1).subscribe(
+      result => {
+        if (result.status === 1) {
+          const listSmsSend = result.list;
+
+          listSmsSend.forEach(function(itemSms) {
+            listadoBoletos.forEach(function(boleto1) {
+              if (boleto1.NumBoleto === itemSms.numBoleto) {
+                boleto1.Visible = 0;
+              }
+            });
+          });
+
+          this.listadoBoletos = listadoBoletos.filter(word => word.Visible === 1);
+          this.listadoBoletosSend = listadoBoletos.filter(word => word.Visible === 1);
+        }
+      },
+      error => {
+        console.log("buscarSmsEnviados ERROR: " + JSON.stringify(error));
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+        console.log("buscarSmsEnviados COMPLETADO");
+      }
+    );
   }
 
 }

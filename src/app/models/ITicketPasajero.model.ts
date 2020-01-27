@@ -14,4 +14,6 @@ export interface ITicketPasajeroModel {
   numBoleto: string;
   ruta: string;
   vip: string;
+  fechaSalida;
+  fechaLlegada;
 }
