@@ -14,6 +14,10 @@ export class VisaPayCompleteComponent implements OnInit {
 
   data_token;
   data_ticket;
+  serviceNumber: string;
+  nombrePasajero: string;
+  emailPasajero: string;
+  pnrPasajero: string;
 
   constructor(
     private visanetService: VisanetService,
@@ -25,11 +29,15 @@ export class VisaPayCompleteComponent implements OnInit {
     console.log("VisaPayCompleteComponent constructor");
     this.data_token = this.sessionStorageService.retrieve('ss_data_token');
     this.data_ticket = this.sessionStorageService.retrieve('ss_data_ticket');
+    this.serviceNumber = "Test";
+    this.nombrePasajero = "Test";
+    this.emailPasajero = "Test";
+    this.pnrPasajero = "Test";
   }
 
   ngOnInit() {
     console.log("VisaPayCompleteComponent ngOnInit");
-    this.purchaseBillMeLater();
+    //this.purchaseBillMeLater();
   }
 
   purchaseBillMeLater() {
@@ -67,6 +75,8 @@ export class VisaPayCompleteComponent implements OnInit {
     this.blueRibbonService.purchaseBillMeLater(data).subscribe(
       result => {
         console.log(JSON.stringify(result));
+        this.nombrePasajero = this.data_ticket.nombreCliente;
+        this.emailPasajero = this.data_ticket.correo;
       },
       err => {
         this.spinner.hide();
