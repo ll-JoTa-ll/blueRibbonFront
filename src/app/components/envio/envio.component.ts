@@ -250,7 +250,7 @@ export class EnvioComponent implements OnInit {
       let dataBoletos = {
         "nombre": 'Juan',//boleto.Pasajero,
         "apellido": 'Caro',//boleto.Pasajero,
-        "celular": "988662201",
+        "celular": "997591876",
         "correo": "juan.caro.1987@gmail.com",
         "pais": "Peru",
         "numBoleto": boleto.NumBoleto,

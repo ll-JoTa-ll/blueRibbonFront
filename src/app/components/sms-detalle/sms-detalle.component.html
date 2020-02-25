@@ -1,0 +1,159 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/send-sms">DomiRibbon</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/send-sms">Envío SMS</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/detalle">Detalle SMS</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="row m-0 p-0 p-3"
+     style="background: #2193b0; background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
+          background: linear-gradient(to right, #6dd5ed, #2193b0);"
+>
+  <div class="col-12 m-0 p-0">
+
+    <div class="row m-0 p-0">
+
+      <div class="col-2 m-0 p-0">
+
+        <div class="btn-group" style="width: 100% !important;" dropdown>
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                  aria-controls="dropdown-basic">
+            {{textoSelEstado}} <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEstado(0, 'Todos')">Todos</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEstado(1, 'Sms enviado')">Sms enviado</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEstado(3, 'Seguro Comprado')">Seguro Comprado</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div *ngIf="false" class="col-3 m-0 p-0">
+
+        <input type="text"
+               placeholder="Fechas"
+               class="form-control"
+               bsDaterangepicker
+               [(ngModel)]="bsRangeValue"
+               [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }">
+
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div *ngIf="false" class="col-1 m-0 p-0">
+        <button (click)="buscar()" class="btn form-control" style="background-color: blue; color: white;">
+          Buscar
+        </button>
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row m-0 p-0 pr-4 pb-2 pt-4">
+
+  <div class="col-12 m-0 p-0 text-right">
+
+    Total: {{totalRegistros}}
+
+  </div>
+
+</div>
+
+
+<div class="row m-0 p-0 pb-5">
+  <div class="col-12 m-0 p-0">
+
+
+    <div class="row m-0 p-0 box-shadow" style="border-radius: 5px !important;">
+
+      <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Pasajero</div>
+      <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Num. Boleto</div>
+
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Ruta</div>
+      <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Aerolinea</div>
+      <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Fecha</div>
+
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Estado</div>
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Cantidad</div>
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center"></div>
+
+    </div>
+
+    <div class="row m-0 p-2 box-shadow" style="border-radius: 5px !important;" *ngFor="let item of listTotal; let i=index">
+
+      <div class="col-2 m-0 p-0 text-2 d-flex align-items-center">{{item.nombreCliente}}</div>
+      <div class="col-2 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.numBoleto}}</div>
+
+      <div class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.ruta}}</div>
+      <div class="col-2 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.airLineName}}</div>
+      <div class="col-2 m-0 p-0 text-2 d-flex justify-content-center align-items-center">
+        {{item.fechaSalida | dateShort}}-{{item.fechaLlegada | dateShort}}
+      </div>
+
+
+      <div *ngIf="item.idEstado === 1" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">SMS</div>
+      <div *ngIf="item.idEstado === 3" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">BRB</div>
+
+      <div class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.cantidadEnvio}}</div>
+
+      <div class="col-1 m-0 p-0 text-2 text-center">
+        <button class="btn btn-primary" (click)="openModalSms(templateSms, item)">
+          SMS
+        </button>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</div>
+
+<ng-template #templateSms>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left tituloTC" style="color: #323F4F !important;">Terminos & Condiciones</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefSms.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="" style="width: 100% !important;">
+      Seguro que desea enviar nuevamente el sms?
+    </div>
+
+    <div class="text-center" style="width: 50% !important;">
+      <button class="btn" (click)="sendSms()">
+        SI
+      </button>
+    </div>
+
+    <div class="text-center" style="width: 50% !important;">
+      <button class="btn" (click)="modalRefSms.hide()">
+        NO
+      </button>
+    </div>
+  </div>
+</ng-template>

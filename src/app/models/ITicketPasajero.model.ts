@@ -16,4 +16,12 @@ export interface ITicketPasajeroModel {
   vip: string;
   fechaSalida;
   fechaLlegada;
+  airLineCode;
+  airLineName;
+  airLineConfirmationNumber;
+  fechaEnvio;
+  fechaVisa;
+  fechaBRB;
+  cantidadEnvio;
+  activo;
 }

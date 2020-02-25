@@ -157,7 +157,7 @@
           <div class="col-12 m-0 p-0 pt-2 pt-md-0 pt-lg-0 d-flex align-items-center">
             <div class="row m-0 p-0 d-flex justify-content-center justify-content-lg-start align-items-center" style="width: 100% !important;">
               <div class="">
-                <input type="checkbox" [(ngModel)]="aceptarTC">
+                <input (change)="changeTC()" type="checkbox" [(ngModel)]="aceptarTC">
               </div>
               <div class="pl-2" style="color: #727272; font-size: 21px !important;">
                 He leido los <u (click)="openModalTC(templateTC)" style="color: #323F4F; cursor: pointer">Terminos & Condiciones</u>
@@ -166,6 +166,7 @@
           </div>
 
           <div class="col-12 m-0 p-0 pt-2 text-center text-lg-left pt-3">
+            <!--
             <button
               *ngIf="aceptarTC"
               (click)="validacionVisa()"
@@ -174,6 +175,14 @@
             >
               Proceder con la compra
             </button>
+            -->
+            <div id="btn_pago">
+
+              <button id="btnPagaAqui" disabled class="btn" style="background-color: #9b9b9b; color: white;">
+                PAGA AQUÍ
+              </button>
+
+            </div>
           </div>
 
         </div>
@@ -255,13 +264,17 @@
 
 -->
 
-<div class="row">
+<!--
+<div class="row pb-5 mb-5">
   <div class="col-12 text-center">
     <div id="btn_pago">
+
+      <p class="m-0 p-0">PAGA AQUÍ</p>
 
     </div>
   </div>
 </div>
+-->
 
 
 <ngx-spinner
@@ -295,7 +308,7 @@
     <div class="text-center" style="width: 100% !important;">
       <button
         class="btn"
-        (click)="aceptarTC=true; modalRefTC.hide();"
+        (click)="aceptarTC=true; modalRefTC.hide(); changeTC();"
         style="background: #E82D56 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1; color: white; width: 200px;"
       >
         Aceptar

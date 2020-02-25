@@ -12,7 +12,7 @@ export const environment = {
   visa_timeouturl: 'http://localhost:4200/visa-fin',
   visa_pagook: 'http://localhost:4200/visa-timeout',
   url_sms: 'https://localhost:4200/pass-ticket',
-  url_visa_auth: 'https://domiribbon.azurewebsites.net/visa/AutorizarTransaccion'
+  url_visa_auth: 'https://domiribbon.azurewebsites.net/visa/AutorizarTransaccionBRB'
 };
 
 /*

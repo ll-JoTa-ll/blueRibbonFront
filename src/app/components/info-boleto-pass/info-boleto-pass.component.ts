@@ -10,6 +10,9 @@ import { IpPcService } from '../../services/ip-pc.service';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-info-boleto-pass',
   templateUrl: './info-boleto-pass.component.html',
@@ -221,6 +224,13 @@ export class InfoBoletoPassComponent implements OnInit {
         console.log('purchaseBillMeLater completado');
       }
     );
+  }
+
+  changeTC() {
+    if (this.aceptarTC === true) {
+      $("#btnPagaAqui").hide();
+      this.validacionVisa();
+    }
   }
 
 }

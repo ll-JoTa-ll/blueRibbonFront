@@ -35,4 +35,8 @@ export class BoletoService {
   getListSmsSend(estado): Observable<IListSmsSend> {
     return this.http.get<IListSmsSend>(this._url2 + "GetLista/" + estado);
   }
+
+  getListaActivos(): Observable<IListSmsSend> {
+    return this.http.get<IListSmsSend>(this._url2 + "GetListaActivos");
+  }
 }

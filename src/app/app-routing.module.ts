@@ -9,6 +9,7 @@ import {VisaPayCompleteComponent} from './components/visa-pay-complete/visa-pay-
 import {VisaTimeoutComponent} from './components/visa-timeout/visa-timeout.component';
 import {VisaBotonJsComponent} from './components/visa-boton-js/visa-boton-js.component';
 import {VisaErrorComponent} from './components/visa-error/visa-error.component';
+import {SmsDetalleComponent} from './components/sms-detalle/sms-detalle.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'visa-timeout', component: VisaTimeoutComponent, runGuardsAndResolvers: 'always' },
   { path: 'boton_js', component: VisaBotonJsComponent, runGuardsAndResolvers: 'always' },
   { path: 'visa-error', component: VisaErrorComponent, runGuardsAndResolvers: 'always' },
+  { path: 'detalle', component: SmsDetalleComponent, runGuardsAndResolvers: 'always' },
 ];
 
 @NgModule({
