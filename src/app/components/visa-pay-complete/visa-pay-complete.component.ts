@@ -75,8 +75,11 @@ export class VisaPayCompleteComponent implements OnInit {
     this.blueRibbonService.purchaseBillMeLater(data).subscribe(
       result => {
         console.log(JSON.stringify(result));
-        this.nombrePasajero = this.data_ticket.nombreCliente;
-        this.emailPasajero = this.data_ticket.correo;
+        if (result.status === 1) {
+          this.nombrePasajero = this.data_ticket.nombreCliente;
+          this.emailPasajero = this.data_ticket.correo;
+          this.serviceNumber = result.serviceNumber
+        }
       },
       err => {
         this.spinner.hide();

@@ -250,7 +250,7 @@ export class EnvioComponent implements OnInit {
       let dataBoletos = {
         "nombre": 'Juan',//boleto.Pasajero,
         "apellido": 'Caro',//boleto.Pasajero,
-        "celular": "997591876",
+        "celular": "988662201",//997591876
         "correo": "juan.caro.1987@gmail.com",
         "pais": "Peru",
         "numBoleto": boleto.NumBoleto,
@@ -308,7 +308,7 @@ export class EnvioComponent implements OnInit {
       let dataBoletos = {
         nombre: boleto.Pasajero,
         apellido: boleto.Pasajero,
-        celular: '956215781',
+        celular: '988662201',
         correo: 'demo@gmail.com',
         pais: '',
         numBoleto: boleto.NumBoleto,
@@ -316,7 +316,7 @@ export class EnvioComponent implements OnInit {
         nacional: boleto.Nacional,
         vip: boleto.Vip,
         docIdentidad: boleto.DocIdentidad,
-        telefonoPax: '956215781',
+        telefonoPax: '988662201',
         corporativo: boleto.PERUVIAN,
         urlStr: 'https://localhost:44316/api/values/{id}'
       };

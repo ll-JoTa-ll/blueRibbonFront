@@ -4,6 +4,12 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SessionStorageService } from 'ngx-webstorage';
 
+interface IPurchaseBillMeLaterResult {
+  status: number;
+  message: string;
+  serviceNumber: string;
+}
+
 let httpOptions = {
   headers: new HttpHeaders()
 };
@@ -25,7 +31,7 @@ export class BlueRibbonService {
     });
   }
 
-  purchaseBillMeLater(data) {
-    return this.http.post(this._url_br + 'purchaseBillMeLater', data);
+  purchaseBillMeLater(data): Observable<IPurchaseBillMeLaterResult> {
+    return this.http.post<IPurchaseBillMeLaterResult>(this._url_br + 'purchaseBillMeLater', data);
   }
 }
