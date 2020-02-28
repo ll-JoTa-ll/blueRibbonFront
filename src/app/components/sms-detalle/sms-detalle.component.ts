@@ -42,8 +42,8 @@ export class SmsDetalleComponent implements OnInit {
     private sessionSt: SessionStorageService
   ) {
     this.listTotal = [];
-    //this.textoSelEstado = "Seleccionar Estado";
-    this.textoSelEstado = "Todos";
+    this.textoSelEstado = "Seleccionar Estado";
+    //this.textoSelEstado = "Todos";
   }
 
   ngOnInit() {
@@ -226,7 +226,7 @@ export class SmsDetalleComponent implements OnInit {
               listTotal.push(item1);
             });
             */
-            this.listTotal = result.list;
+            this.listTotal = result.list.filter(x => x.activo === 1);
             if (bsRangeValue !== undefined) {
               this.listTotal.forEach(function(item) {
                 if (item.idEstado === 1) {
@@ -272,7 +272,7 @@ export class SmsDetalleComponent implements OnInit {
               listTotal.push(item1);
             });
             */
-            this.listTotal = result.list;
+            this.listTotal = result.list.filter(x => x.activo === 1);
             if (bsRangeValue !== undefined) {
               this.listTotal.forEach(function(item) {
                 if (item.idEstado === 3) {

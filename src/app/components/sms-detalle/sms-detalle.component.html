@@ -98,7 +98,7 @@
 
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Estado</div>
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Fec. Registro</div>
-      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Cantidad</div>
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Nro. Sms</div>
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center"></div>
 
     </div>
@@ -139,26 +139,28 @@
 
 <ng-template #templateSms>
   <div class="modal-header">
-    <h4 class="modal-title pull-left tituloTC" style="color: #323F4F !important;">Terminos & Condiciones</h4>
+    <h5>¿Seguro que desea enviar nuevamente el sms?</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefSms.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div class="" style="width: 100% !important;">
-      Seguro que desea enviar nuevamente el sms?
-    </div>
+    <div class="row m-0 p-0">
+      <div class="" style="width: 100% !important;">
 
-    <div class="text-center" style="width: 50% !important;">
-      <button class="btn" (click)="sendSms()">
-        SI
-      </button>
-    </div>
+      </div>
 
-    <div class="text-center" style="width: 50% !important;">
-      <button class="btn" (click)="modalRefSms.hide()">
-        NO
-      </button>
+      <div class="text-center" style="width: 50% !important;">
+        <button style="width: 50px" class="btn btn-primary" (click)="sendSms()">
+          SI
+        </button>
+      </div>
+
+      <div class="text-center" style="width: 50% !important;">
+        <button style="width: 50px" class="btn btn-primary" (click)="modalRefSms.hide()">
+          NO
+        </button>
+      </div>
     </div>
   </div>
 </ng-template>

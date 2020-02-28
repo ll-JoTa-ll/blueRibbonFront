@@ -68,6 +68,9 @@ export class InfoBoletoPassComponent implements OnInit {
             console.log("purchaseNumber: " + purchaseNumber);
             if (item.id_sms_detalle == purchaseNumber) {
               flagPurchaseBillMeLater = 1;
+              if (item.activo == 0) {
+                  flagPurchaseBillMeLater = 0;
+              }
               console.log("flagPurchaseBillMeLater: " + flagPurchaseBillMeLater);
             }
           });
