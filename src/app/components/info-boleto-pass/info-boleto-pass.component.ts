@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BoletoService } from '../../services/boleto.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -31,6 +31,9 @@ export class InfoBoletoPassComponent implements OnInit {
   purchaseNumber: string;
   aceptarTC: boolean;
   modalRefTC: BsModalRef;
+  fecha1;
+  fecha2;
+  listTotal: any[] = [];
 
   constructor(
     private boletoService: BoletoService,
@@ -42,7 +45,7 @@ export class InfoBoletoPassComponent implements OnInit {
     private ipPcService: IpPcService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
   ) {
     //this.purchaseNumber = '21';
     this.aceptarTC = false;
@@ -50,9 +53,41 @@ export class InfoBoletoPassComponent implements OnInit {
   }
 
   ngOnInit() {
+    let flagPurchaseBillMeLater = 0;
     this.id = this.rutaActiva.snapshot.params.id;
     this.purchaseNumber = this.id;
-    this.getTicket(this.id);
+    const purchaseNumber  = this.purchaseNumber;
+    this.spinner.show();
+    this.boletoService.getListSmsSend(1).subscribe(
+      result => {
+        console.log("buscarSmsEnviados result: " + JSON.stringify(result));
+        if (result.status === 1) {
+          this.listTotal = result.list;
+          this.listTotal.forEach(function(item) {
+            console.log("item.id_sms_detalle: " + item.id_sms_detalle);
+            console.log("purchaseNumber: " + purchaseNumber);
+            if (item.id_sms_detalle == purchaseNumber) {
+              flagPurchaseBillMeLater = 1;
+              console.log("flagPurchaseBillMeLater: " + flagPurchaseBillMeLater);
+            }
+          });
+        }
+      },
+      error => {
+        console.log("buscarSmsEnviados ERROR: " + JSON.stringify(error));
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+        console.log("flagPurchaseBillMeLater: " + flagPurchaseBillMeLater);
+        if (flagPurchaseBillMeLater === 1) {
+          this.getTicket(this.id);
+        } else {
+          this.router.navigate(['/pass-ticket-sin']);
+        }
+      }
+    );
+    //this.getTicket(this.id);
   }
 
   getIp() {
@@ -80,6 +115,10 @@ export class InfoBoletoPassComponent implements OnInit {
         console.log(result);
         if (result.status === 1) {
           this.pasajeroBoleto = result.ticket;
+          const fecha1 = this.pasajeroBoleto.fechaSalida.substring(0, 10).split('/');
+          const fecha2 = this.pasajeroBoleto.fechaLlegada.substring(0, 10).split('/');
+          this.fecha1 = fecha1[1] + "/" + fecha1[0] + "/" + fecha1[2];
+          this.fecha2 = fecha2[1] + "/" + fecha2[0] + "/" + fecha2[2];
           this.sessionStorageService.store('ss_data_ticket', this.pasajeroBoleto);
         } else {}
       },

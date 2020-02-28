@@ -90,13 +90,14 @@
     <div class="row m-0 p-0 box-shadow" style="border-radius: 5px !important;">
 
       <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Pasajero</div>
-      <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Num. Boleto</div>
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Num. Boleto</div>
 
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Ruta</div>
       <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Aerolinea</div>
       <div class="col-2 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Fecha</div>
 
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Estado</div>
+      <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Fec. Registro</div>
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center">Cantidad</div>
       <div class="col-1 m-0 p-0 text-titulo-1 d-flex justify-content-center align-items-center"></div>
 
@@ -105,7 +106,7 @@
     <div class="row m-0 p-2 box-shadow" style="border-radius: 5px !important;" *ngFor="let item of listTotal; let i=index">
 
       <div class="col-2 m-0 p-0 text-2 d-flex align-items-center">{{item.nombreCliente}}</div>
-      <div class="col-2 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.numBoleto}}</div>
+      <div class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.numBoleto}}</div>
 
       <div class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.ruta}}</div>
       <div class="col-2 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.airLineName}}</div>
@@ -117,10 +118,14 @@
       <div *ngIf="item.idEstado === 1" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">SMS</div>
       <div *ngIf="item.idEstado === 3" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">BRB</div>
 
+      <div *ngIf="item.idEstado === 1" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.fechaEnvio | dateShort}}</div>
+      <div *ngIf="item.idEstado === 3" class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.fechaBRB | dateShort}}</div>
+
+
       <div class="col-1 m-0 p-0 text-2 d-flex justify-content-center align-items-center">{{item.cantidadEnvio}}</div>
 
       <div class="col-1 m-0 p-0 text-2 text-center">
-        <button class="btn btn-primary" (click)="openModalSms(templateSms, item)">
+        <button *ngIf="item.idEstado === 1"  class="btn btn-primary" (click)="openModalSms(templateSms, item)">
           SMS
         </button>
       </div>

@@ -3,7 +3,8 @@ import { VisanetService } from '../../services/visanet.service';
 import { BlueRibbonService } from '../../services/blue-ribbon.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
-import {IpPcService} from '../../services/ip-pc.service';
+import { IpPcService } from '../../services/ip-pc.service';
+import { BoletoService } from '../../services/boleto.service';
 
 @Component({
   selector: 'app-visa-pay-complete',
@@ -18,13 +19,15 @@ export class VisaPayCompleteComponent implements OnInit {
   nombrePasajero: string;
   emailPasajero: string;
   pnrPasajero: string;
+  listTotal: any[] = [];
 
   constructor(
     private visanetService: VisanetService,
     private blueRibbonService: BlueRibbonService,
     private spinner: NgxSpinnerService,
     private sessionStorageService: SessionStorageService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private boletoService: BoletoService,
   ) {
     console.log("VisaPayCompleteComponent constructor");
     this.data_token = this.sessionStorageService.retrieve('ss_data_token');
@@ -36,8 +39,33 @@ export class VisaPayCompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+    let flagPurchaseBillMeLater = 1;
     console.log("VisaPayCompleteComponent ngOnInit");
-    //this.purchaseBillMeLater();
+    const id_sms_detalle = this.data_ticket.id_sms_detalle;
+    this.spinner.show();
+    this.boletoService.getListSmsSend(3).subscribe(
+      result => {
+        console.log("buscarSmsEnviados result: " + JSON.stringify(result));
+        if (result.status === 1) {
+          this.listTotal = result.list;
+          this.listTotal.forEach(function(item) {
+            if (item.id_sms_detalle === id_sms_detalle) {
+              flagPurchaseBillMeLater = 0;
+            }
+          });
+        }
+      },
+      error => {
+        console.log("buscarSmsEnviados ERROR: " + JSON.stringify(error));
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+        if (flagPurchaseBillMeLater === 1) {
+          this.purchaseBillMeLater();
+        }
+      }
+    );
   }
 
   purchaseBillMeLater() {

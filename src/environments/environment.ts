@@ -8,11 +8,11 @@ export const environment = {
   url2: 'https://domiribbon.azurewebsites.net',
   url_br: 'https://domiribbon.azurewebsites.net',
   token_br: 'NmI0MjM3NDktNmZkYi00NGVmLWE0M2YtMGVkMDVhZTg5ZmI2',
-  url_visa: 'https://domiribbon.azurewebsites.net',
+  url_visa: 'https://domiruthvisauat.azurewebsites.net',
   visa_timeouturl: 'http://localhost:4200/visa-fin',
   visa_pagook: 'http://localhost:4200/visa-timeout',
   url_sms: 'https://localhost:4200/pass-ticket',
-  url_visa_auth: 'https://domiribbon.azurewebsites.net/visa/AutorizarTransaccionBRB'
+  url_visa_auth: 'https://domiruthvisauat.azurewebsites.net/visa/AutorizarTransaccionBRB'
 };
 
 /*

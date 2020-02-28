@@ -29,6 +29,8 @@ import { VisaBotonJsComponent } from './components/visa-boton-js/visa-boton-js.c
 import { VisaErrorComponent } from './components/visa-error/visa-error.component';
 import { SmsDetalleComponent } from './components/sms-detalle/sms-detalle.component';
 import { DateShortPipe } from './pipes/date-short.pipe';
+import { FechaStrShortPipe } from './pipes/fecha-str-short.pipe';
+import { InfoBoletoSinComponent } from './components/info-boleto-sin/info-boleto-sin.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { DateShortPipe } from './pipes/date-short.pipe';
     VisaBotonJsComponent,
     VisaErrorComponent,
     SmsDetalleComponent,
-    DateShortPipe
+    DateShortPipe,
+    FechaStrShortPipe,
+    InfoBoletoSinComponent
   ],
   imports: [
     BrowserModule,

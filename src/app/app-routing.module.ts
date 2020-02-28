@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {EnvioComponent} from './components/envio/envio.component';
-import {InfoBoletoPassComponent} from './components/info-boleto-pass/info-boleto-pass.component';
-import {BlueRibbomFinishComponent} from './components/blue-ribbom-finish/blue-ribbom-finish.component';
-import {VisaDatosComponent} from './components/visa-datos/visa-datos.component';
-import {VisaPayCompleteComponent} from './components/visa-pay-complete/visa-pay-complete.component';
-import {VisaTimeoutComponent} from './components/visa-timeout/visa-timeout.component';
-import {VisaBotonJsComponent} from './components/visa-boton-js/visa-boton-js.component';
-import {VisaErrorComponent} from './components/visa-error/visa-error.component';
-import {SmsDetalleComponent} from './components/sms-detalle/sms-detalle.component';
+import { LoginComponent } from './components/login/login.component';
+import { EnvioComponent } from './components/envio/envio.component';
+import { InfoBoletoPassComponent } from './components/info-boleto-pass/info-boleto-pass.component';
+import { BlueRibbomFinishComponent } from './components/blue-ribbom-finish/blue-ribbom-finish.component';
+import { VisaDatosComponent } from './components/visa-datos/visa-datos.component';
+import { VisaPayCompleteComponent } from './components/visa-pay-complete/visa-pay-complete.component';
+import { VisaTimeoutComponent } from './components/visa-timeout/visa-timeout.component';
+import { VisaBotonJsComponent } from './components/visa-boton-js/visa-boton-js.component';
+import { VisaErrorComponent } from './components/visa-error/visa-error.component';
+import { SmsDetalleComponent } from './components/sms-detalle/sms-detalle.component';
+import { InfoBoletoSinComponent } from './components/info-boleto-sin/info-boleto-sin.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'boton_js', component: VisaBotonJsComponent, runGuardsAndResolvers: 'always' },
   { path: 'visa-error', component: VisaErrorComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle', component: SmsDetalleComponent, runGuardsAndResolvers: 'always' },
+  { path: 'pass-ticket-sin', component: InfoBoletoSinComponent, runGuardsAndResolvers: 'always' },
 ];
 
 @NgModule({
