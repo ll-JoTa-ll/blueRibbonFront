@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   model: any = {};
   production = environment.production;
+  dateObj = new Date(200228210453 * 100);
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private loginService: LoginService
-  ) { }
+  ) {
+    console.log(this.dateObj);
+  }
 
   ngOnInit() {
   }

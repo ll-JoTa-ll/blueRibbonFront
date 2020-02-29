@@ -20,6 +20,9 @@ export class VisaPayCompleteComponent implements OnInit {
   emailPasajero: string;
   pnrPasajero: string;
   listTotal: any[] = [];
+  fecHora;
+  numTransaccion;
+  numTarjeta;
 
   constructor(
     private visanetService: VisanetService,
@@ -70,6 +73,7 @@ export class VisaPayCompleteComponent implements OnInit {
 
   purchaseBillMeLater() {
     console.log("purchaseBillMeLater INI");
+    let statusBrb = 0;
     this.spinner.show();
     const data = {
       "idSMSDet": this.data_ticket.id_sms_detalle,
@@ -104,6 +108,7 @@ export class VisaPayCompleteComponent implements OnInit {
       result => {
         console.log(JSON.stringify(result));
         if (result.status === 1) {
+          statusBrb = 1;
           this.nombrePasajero = this.data_ticket.nombreCliente;
           this.emailPasajero = this.data_ticket.correo;
           this.serviceNumber = result.serviceNumber
@@ -118,6 +123,42 @@ export class VisaPayCompleteComponent implements OnInit {
         this.spinner.hide();
         //this.router.navigate(['/br-finish']);
         console.log('purchaseBillMeLater COMPLETADO');
+
+        //Datos de VISA
+        console.log("this.data_ticket.id_sms_detalle: " + this.data_ticket.id_sms_detalle);
+        this.spinner.show();
+        if (statusBrb === 1) {
+          let dataPn = {
+            'purchaseNumber': "" + this.data_ticket.id_sms_detalle,
+            'codSistema': 'BRB'
+          };
+          this.visanetService.getByPurchaseNumber(dataPn).subscribe(
+            result => {
+              if (result.status === 1) {
+                  const LstVisa = result.list;
+                  const dataVisaTrans = LstVisa[LstVisa.length - 1];
+                  const fecha = dataVisaTrans.fechaRegistro.split('-');
+                  const dia = fecha[2].substring(0, 2);
+                  const mes = fecha[1];
+                  const anho = fecha[0];
+                  const hora = dataVisaTrans.fechaRegistro.split('T')[1];
+                  this.fecHora = dia + "/" + mes + "/" + anho + " " + hora.substring(0, 5) + "h";
+                  this.numTransaccion = dataVisaTrans.transactionId;
+                  this.numTarjeta = dataVisaTrans.card;
+              }
+            },
+            err => {
+              this.spinner.hide();
+              //this.router.navigate(['/br-finish']);
+              console.log('ERROR: ' + JSON.stringify(err));
+            },
+            () => {
+              this.spinner.hide();
+              //this.router.navigate(['/br-finish']);
+              console.log('getByPurchaseNumber COMPLETADO');
+            }
+          );
+        }
       }
     );
   }
