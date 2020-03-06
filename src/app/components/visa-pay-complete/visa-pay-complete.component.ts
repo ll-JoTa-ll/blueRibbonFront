@@ -65,7 +65,18 @@ export class VisaPayCompleteComponent implements OnInit {
       () => {
         this.spinner.hide();
         if (flagPurchaseBillMeLater === 1) {
-          this.purchaseBillMeLater();
+          let dataUpdate = {
+            "id_sms_detalle": this.data_ticket.id_sms_detalle,
+            "idEstado": 2,
+            "vip":'2'
+          };
+          this.boletoService.updateEstadoSMS(dataUpdate).subscribe(
+            result => {},
+            error => {},
+            () => {
+              this.purchaseBillMeLater();
+            }
+          );
         }
       }
     );
@@ -158,6 +169,13 @@ export class VisaPayCompleteComponent implements OnInit {
               console.log('getByPurchaseNumber COMPLETADO');
             }
           );
+        } else {
+          let dataUpdate = {
+            "id_sms_detalle": this.data_ticket.id_sms_detalle,
+            "idEstado": 31,
+            "vip":'1'
+          };
+          this.boletoService.updateEstadoSMS(dataUpdate).subscribe();
         }
       }
     );

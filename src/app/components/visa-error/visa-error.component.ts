@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { VisanetService } from '../../services/visanet.service';
 import { BlueRibbonService } from '../../services/blue-ribbon.service';
+import { BoletoService } from '../../services/boleto.service';
 
 @Component({
   selector: 'app-visa-error',
@@ -20,6 +21,7 @@ export class VisaErrorComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private visanetService: VisanetService,
     private blueRibbonService: BlueRibbonService,
+    private boletoService: BoletoService
   ) {
     console.log("VisaErrorComponent constructor");
     this.data_ticket = this.sessionStorageService.retrieve('ss_data_ticket');
@@ -58,6 +60,12 @@ export class VisaErrorComponent implements OnInit {
         this.spinner.hide();
         //this.router.navigate(['/br-finish']);
         console.log('getByPurchaseNumber COMPLETADO');
+        let dataUpdate = {
+          "id_sms_detalle": this.data_ticket.id_sms_detalle,
+          "idEstado": 21,
+          "vip":'2'
+        };
+        this.boletoService.updateEstadoSMS(dataUpdate).subscribe();
       }
     );
   }

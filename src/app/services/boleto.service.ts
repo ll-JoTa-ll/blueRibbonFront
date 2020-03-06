@@ -25,6 +25,8 @@ export class BoletoService {
   }
 
   sendSms(dataPost) {
+    console.log("sendSms");
+    console.log("dataPost: " + JSON.stringify(dataPost));
     return this.http.post(this._url2 + 'enviarboletos', dataPost);
   }
 
@@ -38,5 +40,9 @@ export class BoletoService {
 
   getListaActivos(): Observable<IListSmsSend> {
     return this.http.get<IListSmsSend>(this._url2 + "GetListaActivos");
+  }
+
+  updateEstadoSMS(dataPost) {
+    return this.http.post(this._url2 + "updateEstadoSMS", dataPost);
   }
 }
