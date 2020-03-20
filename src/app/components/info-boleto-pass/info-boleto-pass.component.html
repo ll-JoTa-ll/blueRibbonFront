@@ -1,6 +1,6 @@
 
 
-<div class="row m-0 p-0" style="width: 100% !important; height: 100% !important; background-color: white">
+<div *ngIf="valIni" class="row m-0 p-0" style="width: 100% !important; height: 100% !important; background-color: white">
 
 
   <div class="col-12 m-0 p-0 p-4">
@@ -128,6 +128,20 @@
         <div class="row m-0 p-0">
 
           <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+              <div class="col-12 m-0 p-0 pt-2 pb-2">
+                <input id="txtName" type="text" placeholder="Nombre" class="form-control" [(ngModel)]="model.name">
+              </div>
+              <div class="col-12 m-0 p-0 pt-2 pb-2">
+                <input id="txtLastName" type="text" placeholder="Apellido" class="form-control" [(ngModel)]="model.lastname">
+              </div>
+              <div class="col-12 m-0 p-0 pt-2 pb-2">
+                <input id="txtEmail" type="text" placeholder="Correo" class="form-control" [(ngModel)]="model.email">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 m-0 p-0">
             <p class="p-0 m-0" style="color: #727272; font-size: 23px">Total a pagar:</p>
           </div>
 
@@ -157,7 +171,7 @@
           <div class="col-12 m-0 p-0 pt-2 pt-md-0 pt-lg-0 d-flex align-items-center">
             <div class="row m-0 p-0 d-flex justify-content-center justify-content-lg-start align-items-center" style="width: 100% !important;">
               <div class="">
-                <input (change)="changeTC()" type="checkbox" [(ngModel)]="aceptarTC">
+                <input id="chbxAtc" (change)="changeTC()" type="checkbox" [(ngModel)]="aceptarTC">
               </div>
               <div class="pl-2" style="color: #727272; font-size: 21px !important;">
                 He leido los <u (click)="openModalTC(templateTC)" style="color: #323F4F; cursor: pointer">Terminos & Condiciones</u>
@@ -308,7 +322,7 @@
     <div class="text-center" style="width: 100% !important;">
       <button
         class="btn"
-        (click)="aceptarTC=true; modalRefTC.hide(); changeTC();"
+        (click)="modalRefTC.hide();"
         style="background: #E82D56 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1; color: white; width: 200px;"
       >
         Aceptar

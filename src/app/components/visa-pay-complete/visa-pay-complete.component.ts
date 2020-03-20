@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { VisanetService } from '../../services/visanet.service';
 import { BlueRibbonService } from '../../services/blue-ribbon.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,7 +11,7 @@ import { BoletoService } from '../../services/boleto.service';
   templateUrl: './visa-pay-complete.component.html',
   styleUrls: ['./visa-pay-complete.component.sass']
 })
-export class VisaPayCompleteComponent implements OnInit {
+export class VisaPayCompleteComponent implements OnInit, AfterViewInit {
 
   data_token;
   data_ticket;
@@ -81,6 +81,8 @@ export class VisaPayCompleteComponent implements OnInit {
       }
     );
   }
+
+  ngAfterViewInit() {}
 
   purchaseBillMeLater() {
     console.log("purchaseBillMeLater INI");

@@ -34,6 +34,8 @@ export class InfoBoletoPassComponent implements OnInit {
   fecha1;
   fecha2;
   listTotal: any[] = [];
+  model: any = {};
+  valIni = false;
 
   constructor(
     private boletoService: BoletoService,
@@ -131,6 +133,7 @@ export class InfoBoletoPassComponent implements OnInit {
       },
       () => {
         this.flagDatos = true;
+        this.valIni = true;
         this.spinner.hide();
         console.log('getTicket completado');
       }
@@ -165,11 +168,11 @@ export class InfoBoletoPassComponent implements OnInit {
       "sistema": "BlueRibbon",
       "tabla": "t_sendsms_detalle",
       "idtabla": this.id,
-      "nombre": 'Juan', //this.pasajeroBoleto.nombreCliente
-      "apellido": 'Caro', //this.pasajeroBoleto.apellidoCliente
+      "nombre": this.model.name, //this.pasajeroBoleto.nombreCliente
+      "apellido": this.model.lastname, //this.pasajeroBoleto.apellidoCliente
       "tipodoc": "DNI",
-      "numdoc": 44211032, //this.pasajeroBoleto.docIdentidad
-      "customerEmail": "juan.caro.1987@gmail.com",
+      "numdoc": "44211032", //this.pasajeroBoleto.docIdentidad
+      "customerEmail": this.model.email,
       "currency": "USD",
       "productId": "341198214",
       "purchaseNumber": this.purchaseNumber,
@@ -215,9 +218,9 @@ export class InfoBoletoPassComponent implements OnInit {
     scriptEl.setAttribute('data-purchasenumber', this.purchaseNumber);
     scriptEl.setAttribute('data-channel', 'web');
     scriptEl.setAttribute('data-amount', '1');
-    scriptEl.setAttribute('data-cardholdername', "Juan");
-    scriptEl.setAttribute('data-cardholderlastname', "Caro");
-    scriptEl.setAttribute('data-cardholderemail', "juan.caro.1987@gmail.com");
+    scriptEl.setAttribute('data-cardholdername', this.model.name);
+    scriptEl.setAttribute('data-cardholderlastname', this.model.lastname);
+    scriptEl.setAttribute('data-cardholderemail', this.model.email);
     scriptEl.setAttribute('data-expirationminutes', '20');
     scriptEl.setAttribute('data-timeouturl', environment.visa_timeouturl);
     document.getElementById("boton_pago").appendChild(scriptEl);
@@ -270,6 +273,36 @@ export class InfoBoletoPassComponent implements OnInit {
 
   changeTC() {
     if (this.aceptarTC === true) {
+      let flagValCampos = 0;
+      if (this.model.name == "" || this.model.name == undefined || this.model.name.length == 0) {
+        this.aceptarTC = false;
+        $("#chbxAtc").prop("checked", false);
+        flagValCampos++;
+        $("#txtName").addClass("campo-invalido");
+      } else {
+        $("#txtName").removeClass("campo-invalido");
+      }
+      if (this.model.lastname == "" || this.model.lastname == undefined || this.model.lastname.length == 0) {
+        this.aceptarTC = false;
+        $("#chbxAtc").prop("checked", false);
+        flagValCampos++;
+        $("#txtLastName").addClass("campo-invalido");
+      } else {
+        $("#txtLastName").removeClass("campo-invalido");
+      }
+      if (this.model.email == "" || this.model.email == undefined || this.model.email.length == 0) {
+        this.aceptarTC = false;
+        $("#chbxAtc").prop("checked", false);
+        flagValCampos++;
+        $("#txtEmail").addClass("campo-invalido");
+      } else {
+        $("#txtEmail").removeClass("campo-invalido");
+      }
+
+      if (flagValCampos > 0) {
+        return false;
+      }
+
       $("#btnPagaAqui").hide();
       this.validacionVisa();
     }
